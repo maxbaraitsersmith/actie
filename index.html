@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>ACTIE</title>
+  <link rel="stylesheet" href="TemplateData/style.css">
+</head>
+
+<body>
+  <span id="currentWork" style="display: none;">4</span>
+  <img id="actie-logo" src="TemplateData/actie-logo.png"></img>
+  <p id="credit">For Firefox or Chrome<br>Site by Amos Peled and Max Baraitser Smith</p>
+  <div id="clickcanvas"">
+    <span id="clicktoplay" onclick="clickedToPlay()">Click to play</span>
+  </div>
+  <div id="nomobile">Sorry, Actie.space doesn't work on mobile!</div>
+  <div id="unity-loading-bar">
+    <div id="unity-progress-bar-empty">
+      <div id="unity-progress-bar-full"></div>
+    </div>
+  </div>
+  <div id="gameContainer">
+    <canvas id="unity-canvas"></canvas>
+    <script src="Build/FINALE.loader.js"></script>
+    <script>
+
+
+      function openLink(e) {
+        if (e.code == "KeyL") {
+          var currentWork = document.getElementById("currentWork").innerHTML*1.0;
+          if (currentWork==1) { window.open("https://youtu.be/IOzaT_uTNiU",'_blank'); }
+          if (currentWork==2) { window.open("https://youtu.be/SBeYzoQPbu8",'_blank'); }
+          if (currentWork==3) { window.open("https://youtu.be/ixQkcuZhXg8",'_blank'); }
+          if (currentWork==4) { window.open("https://youtu.be/91UczWPzMjg",'_blank'); }
+          if (currentWork==5) { window.open("https://youtu.be/Pvqb5aSDfrE",'_blank'); }
+          if (currentWork==6) { window.open("https://youtu.be/v3i8vsIUA7Q",'_blank'); }
+          if (currentWork==7) { window.open("https://youtu.be/0r--lCyPjRY",'_blank'); }
+          if (currentWork==8) { window.open("https://youtu.be/VV5JOQyUYNg",'_blank'); }
+          if (currentWork==9) { window.open("https://youtu.be/b3sOOBicyDY",'_blank'); }
+          if (currentWork==10) { window.open("https://youtu.be/zMtj4yJKuzk",'_blank'); }
+          if (currentWork==11) { window.open("https://youtu.be/GzgavGowD_A",'_blank'); }
+          if (currentWork==12) { window.open("https://youtu.be/5lL5xRKquPQ",'_blank'); }
+          if (currentWork==13) { window.open("https://youtu.be/PaFnO5LKTSs",'_blank'); }
+          if (currentWork==14) { window.open("https://youtu.be/lBKGeYILzaM",'_blank'); }
+        }
+      }
+
+
+      function clickedToPlay() {
+        document.getElementById("clickcanvas").style.display = "none";
+        document.getElementById("actie-logo").style.display = "none";
+        document.getElementById("credit").style.display = "none";
+      }
+
+
+      document.addEventListener('keydown', openLink);
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      loadingBar.style.display = "block";
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/FINALE.data",
+        frameworkUrl: "Build/FINALE.framework.js",
+        codeUrl: "Build/FINALE.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "withMAX",
+        productVersion: "0.1",
+      }, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then(function (instance) {
+        document.getElementById("clickcanvas").style.zIndex = "1";
+        document.getElementById("actie-logo").onclick = function(){ clickedToPlay(); };
+        document.getElementById("clickcanvas").onclick = function(){ clickedToPlay(); };
+        document.getElementById("actie-logo").style.cursor = "pointer";
+
+        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        //isSafari = true;
+        if (isSafari) {
+          instance.SendMessage('safari_manager', 'enableSafariBackdrop');
+        }
+
+        loadingBar.style.display = "none";
+        var canvas = instance.Module.canvas;
+        var container = canvas.parentElement;
+  
+        function onResize() {
+          var w;
+          var h;
+
+          if (scaleToFit) {
+            w = window.innerWidth;
+            h = window.innerHeight;
+
+            var r = 720 / 1280;
+
+            if (w * r > window.innerHeight) {
+              w = Math.min(w, Math.ceil(h / r));
+            }
+            h = Math.floor(w * r);
+          } else {
+            w = 1280;
+			h = 720;
+          }
+
+          container.style.width = canvas.style.width = w + "px";
+          container.style.height = canvas.style.height = h + "px";
+          container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+          container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+        }
+
+        var scaleToFit;
+        try {
+          scaleToFit = !!JSON.parse("");
+        } catch (e) {
+          scaleToFit = true;
+        }
+        window.addEventListener('resize', onResize);
+        onResize();
+      });
+    </script>
+  </div>
+</body>
+
+</html>

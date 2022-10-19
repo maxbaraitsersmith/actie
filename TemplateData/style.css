@@ -1,0 +1,106 @@
+
+@font-face {
+  font-family: "SuisseEcalIntl";
+  src: url("SuisseEcalIntl-Regular.otf") format("opentype");
+}
+
+html,
+      body {
+        background: white;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        padding: 0;
+        margin: 0;
+        font-family: SuisseEcalIntl;
+      }
+
+      div#gameContainer {
+        background: transparent !important;
+        position: absolute;
+      }
+
+      div#gameContainer canvas {
+        position: absolute;
+      }
+
+
+
+#credit { 
+  position: absolute; 
+  bottom: 0%; 
+  right: 1%; 
+  z-index: 2;
+  color: #fba3fe;
+}
+#actie-logo { 
+  position: absolute; 
+  left: 50%; 
+  top: 45%; 
+  transform: translate(-50%, -45%); 
+  height: 100px;
+  z-index: 2;
+}
+
+#clickcanvas { 
+  display: block;
+  position: absolute; 
+  left: 0; 
+  top: 0; 
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: -1;
+  cursor: pointer;
+}
+#clicktoplay {
+  position: absolute; 
+  left: 50%; 
+  top: 45%; 
+  transform: translate(-50%, -45%); 
+  margin-top: 75px; 
+  font-size: 24px;
+  color: #fba3fe;
+}
+
+#unity-loading-bar { 
+	position: absolute; 
+	left: 50%; 
+	top: 45%; 
+	transform: translate(-50%, -45%); 
+	display: none;
+  z-index: 2;
+}
+#unity-progress-bar-empty {
+
+	width: 141px; 
+	height: 18px; 
+	margin-top: 150px; 
+	background: url('progress-bar-empty-dark.png') no-repeat center 
+}
+#unity-progress-bar-full { 
+	width: 0%; 
+	height: 18px; 
+	margin-top: 150px; 
+	background: url('progress-bar-full-dark.png') no-repeat center 
+}
+#nomobile {
+  display: none; 
+  position: absolute; 
+  left: 50%; 
+  top: 50%; 
+  transform: translate(-50%, -50%); 
+  z-index: 2;
+  font-size: 30px;
+  text-align: center;
+}
+
+
+ @media screen and (orientation:portrait) {
+    #nomobile {
+      display: block;
+    }
+    #unity-progress-bar-empty, #unity-progress-bar-full, #clicktoplay, #actie-logo,#credit {
+      display: none;
+    }
+ }
